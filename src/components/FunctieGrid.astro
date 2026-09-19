@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import RoleIcon from './RoleIcon.astro';
+
+const functies = (await getCollection('functies')).sort((a, b) => a.data.volgorde - b.data.volgorde);
+---
+
+<section class="relative overflow-hidden bg-mist-50 py-20 lg:py-24">
+  <div class="blob w-64 h-64 bg-clay-50 right-8 top-8 hidden md:block"></div>
+
+  <div class="relative mx-auto max-w-content px-6 lg:px-10 text-center">
+    <p class="text-teal-600 font-semibold tracking-wide text-sm mb-3">Populaire functies</p>
+    <h2 class="font-display font-extrabold text-3xl lg:text-4xl text-navy-700">Welke functie past bij jou?</h2>
+    <p class="mt-4 text-navy-400 max-w-xl mx-auto leading-relaxed">
+      Ontdek vacatures binnen verschillende zorgsectoren en functies. Van Helpende tot Verpleegkundige en
+      van GGZ tot ouderenzorg.
+    </p>
+
+    <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      {functies.map((functie, i) => (
+        <button
+          type="button"
+          data-functie-card={functie.slug}
+          class="functie-card group flex flex-col items-center text-center bg-white rounded-2xl border border-navy-50 hover:border-teal-400 hover:shadow-[0_10px_24px_-10px_rgba(31,156,142,0.35)] transition-all p-6"
+        >
+          <RoleIcon icoon={functie.data.icoon} tone={i % 2 === 0 ? 'teal' : 'clay'} />
+          <span class="mt-4 font-display font-bold text-navy-700 text-[15px] leading-snug">{functie.data.naam}</span>
+          <span class={`mt-3 flex items-center justify-center w-7 h-7 rounded-full transition-colors ${i % 2 === 0 ? 'bg-teal-50 text-teal-600 group-hover:bg-teal-600' : 'bg-clay-50 text-clay-600 group-hover:bg-clay-600'} group-hover:text-white`}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-functie-card]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const slug = card.getAttribute('data-functie-card');
+      const select = document.getElementById('functie-select') as HTMLSelectElement | null;
+      if (select && slug) {
+        select.value = slug;
+      }
+      document.getElementById('vacatures-lijst')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.dispatchEvent(new CustomEvent('p1zorg:filter-apply'));
+    });
+  });
+</script>

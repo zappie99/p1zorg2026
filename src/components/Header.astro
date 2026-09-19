@@ -1,0 +1,91 @@
+---
+import Logo from './Logo.astro';
+
+const navItems = [
+  { href: '/vacatures', label: 'Vacatures' },
+  { href: '/#branches', label: 'Branches' },
+  { href: '/#waarom-p1zorg', label: 'Waarom P1Zorg' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-navy-50">
+  <div class="mx-auto max-w-content px-6 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <Logo />
+
+      <nav class="hidden lg:flex items-center gap-8" aria-label="Hoofdnavigatie">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-[15px] font-medium text-navy-600 hover:text-teal-600 transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <a
+          href="/vacatures"
+          class="inline-flex items-center gap-1.5 rounded-full bg-clay-600 hover:bg-clay-700 text-white text-[15px] font-semibold px-5 py-2.5 transition-colors"
+        >
+          Bekijk vacatures
+        </a>
+      </div>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="lg:hidden inline-flex items-center justify-center w-10 h-10 text-navy-700"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Menu openen"
+      >
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg id="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-navy-50 bg-white">
+    <nav class="flex flex-col px-6 py-4 gap-1" aria-label="Mobiele navigatie">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="py-2.5 text-[15px] font-medium text-navy-600 hover:text-teal-600"
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/vacatures"
+        class="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-clay-600 text-white text-[15px] font-semibold px-5 py-2.5"
+      >
+        Bekijk vacatures
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('hidden') === false;
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>

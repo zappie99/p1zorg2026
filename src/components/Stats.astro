@@ -1,0 +1,26 @@
+---
+const stats = [
+  { getal: '500+', label: 'zorgprofessionals geholpen', omschrijving: 'Wij helpen dagelijks zorgprofessionals aan opdrachten die écht bij hen passen.' },
+  { getal: '25+', label: 'aangesloten zorginstellingen', omschrijving: 'Samenwerken met betrouwbare zorginstellingen in Brabant en daarbuiten.' },
+  { getal: '2019', label: 'actief sinds', omschrijving: 'Al sinds 2019 verbinden wij zorg en professionals op een persoonlijke en betrokken manier.' },
+];
+---
+
+<section class="relative bg-mist-50 py-16 lg:py-20">
+  <div class="mx-auto max-w-content px-6 lg:px-10">
+    <div class="relative overflow-hidden rounded-3xl bg-white shadow-[0_10px_40px_-12px_rgba(22,38,74,0.12)] px-8 py-14">
+      <div class="blob w-56 h-56 bg-clay-50 -left-16 -bottom-16 hidden md:block"></div>
+      <div class="blob w-48 h-48 bg-teal-50 -right-10 -top-16 hidden md:block"></div>
+
+      <div class="relative grid sm:grid-cols-3 gap-10 sm:divide-x sm:divide-navy-100">
+        {stats.map((stat) => (
+          <div class="text-center px-4">
+            <p class="font-display font-extrabold text-4xl lg:text-5xl text-navy-700">{stat.getal}</p>
+            <p class="text-teal-600 font-semibold mt-1">{stat.label}</p>
+            <p class="text-navy-400 text-sm mt-3 leading-relaxed max-w-[220px] mx-auto">{stat.omschrijving}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

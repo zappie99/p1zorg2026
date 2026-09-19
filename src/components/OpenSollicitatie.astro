@@ -1,0 +1,59 @@
+---
+---
+
+<section id="open-sollicitatie" class="relative overflow-hidden bg-sand-50 py-20 lg:py-24 scroll-mt-20">
+  <div class="mx-auto max-w-content px-6 lg:px-10">
+    <div class="relative overflow-hidden rounded-3xl bg-white shadow-[0_10px_40px_-14px_rgba(22,38,74,0.15)] grid lg:grid-cols-2">
+      <div class="p-8 sm:p-12 flex flex-col justify-center">
+        <p class="text-clay-600 font-semibold tracking-wide text-sm mb-3">Open sollicitatie</p>
+        <h2 class="font-display font-extrabold text-3xl text-navy-700 leading-snug mb-4">
+          Jouw ideale vacature nog niet gevonden?
+        </h2>
+        <p class="text-navy-400 leading-relaxed mb-8 max-w-md">
+          Laat je gegevens achter. Wij kijken graag samen naar de mogelijkheden en brengen je in contact
+          met passende zorgorganisaties.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-6 mb-8">
+          {[
+            { titel: 'Persoonlijk contact', omschrijving: 'Je hebt altijd een vast aanspreekpunt.', icoon: 'heart' },
+            { titel: 'Groot netwerk in Zuid-Nederland', omschrijving: 'Wij hebben vacatures bij veel zorgorganisaties.', icoon: 'pin' },
+            { titel: 'Betrokken en betrouwbaar', omschrijving: 'Wij denken met je mee en zetten ons voor je in.', icoon: 'handshake' },
+          ].map((item) => (
+            <div>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-teal-50 text-teal-600 mb-3">
+                {item.icoon === 'heart' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+                )}
+                {item.icoon === 'pin' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                )}
+                {item.icoon === 'handshake' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12l4-4 4 2 3-3 4 4-3 3"></path><path d="M6 8l5 5"></path><path d="M14 10l4 4-3 3-4-4"></path></svg>
+                )}
+              </span>
+              <p class="font-semibold text-navy-700 text-[15px] mb-1">{item.titel}</p>
+              <p class="text-navy-400 text-sm leading-relaxed">{item.omschrijving}</p>
+            </div>
+          ))}
+        </div>
+
+        <a
+          href="mailto:info@p1zorg.nl?subject=Open%20sollicitatie"
+          class="inline-flex items-center gap-2 rounded-full bg-clay-600 hover:bg-clay-700 text-white font-semibold px-6 py-3.5 transition-colors w-fit"
+        >
+          Open sollicitatie
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+      <div class="relative hidden lg:block min-h-[360px]">
+        <img
+          src="/images/open-sollicitatie.svg"
+          alt="Zorgprofessional van P1Zorg glimlachend"
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

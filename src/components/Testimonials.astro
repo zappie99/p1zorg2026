@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+
+const reviews = (await getCollection('reviews')).sort((a, b) => a.data.volgorde - b.data.volgorde);
+---
+
+<section class="relative bg-white py-20 lg:py-28">
+  <div class="mx-auto max-w-content px-6 lg:px-10">
+    <div class="flex items-center gap-2 mb-3">
+      <p class="text-teal-600 font-semibold tracking-wide text-sm">Ervaringen</p>
+    </div>
+    <div class="flex items-start justify-between gap-6 mb-4">
+      <h2 class="font-display font-extrabold text-3xl lg:text-4xl text-navy-700 max-w-lg leading-snug">
+        Wat zorgprofessionals over P1Zorg zeggen
+      </h2>
+    </div>
+    <p class="flex items-center gap-2 text-navy-400 mb-12">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#F07C2E" stroke="none"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+      Echte ervaringen. Echte impact.
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+      {reviews.map((review) => (
+        <div class="rounded-2xl bg-mist-50 p-7">
+          <div class="flex gap-1 mb-4" aria-label={`${review.data.sterren} van 5 sterren`}>
+            {Array.from({ length: review.data.sterren }).map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#F07C2E" stroke="none"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"></polygon></svg>
+            ))}
+          </div>
+          <p class="text-navy-700 leading-relaxed mb-5">&ldquo;{review.data.citaat}&rdquo;</p>
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-9 h-9 rounded-full bg-teal-50 text-teal-600">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 20c0-3.5 2.8-6 6.5-6s6.5 2.5 6.5 6"></path></svg>
+            </span>
+            <div>
+              <p class="font-semibold text-navy-700 text-sm">{review.data.naam}</p>
+              <p class="text-navy-400 text-xs">{review.data.functie}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

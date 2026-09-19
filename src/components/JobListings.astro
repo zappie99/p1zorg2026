@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import JobCard from './JobCard.astro';
+
+const alleVacatures = await getCollection('vacatures');
+const functies = await getCollection('functies');
+const functieMap = new Map(functies.map((f) => [f.slug, f.data]));
+
+const gesorteerd = [...alleVacatures].sort((a, b) => {
+  if (a.data.uitgelicht !== b.data.uitgelicht) return a.data.uitgelicht ? -1 : 1;
+  return b.data.gepubliceerd.getTime() - a.data.gepubliceerd.getTime();
+});
+
+const total = gesorteerd.length;
+---
+
+<section id="vacatures-lijst" class="relative bg-white py-20 lg:py-24 scroll-mt-20">
+  <div class="mx-auto max-w-content px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto mb-4">
+      <p class="text-teal-600 font-semibold tracking-wide text-sm mb-3">Actuele vacatures</p>
+      <h2 class="font-display font-extrabold text-3xl lg:text-4xl text-navy-700">De nieuwste vacatures van dit moment</h2>
+      <p class="mt-4 text-navy-400 leading-relaxed">
+        Bekijk onze actuele vacatures en solliciteer direct op een functie die bij jou past.
+      </p>
+    </div>
+
+    <p id="vacatures-resultaat" class="text-center text-sm text-navy-400 mb-8" aria-live="polite">
+      {total} vacatures gevonden
+    </p>
+
+    <div id="vacatures-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {gesorteerd.map((vacature, i) => {
+        const functie = functieMap.get(vacature.data.functie);
+        return (
+          <div class:list={['job-card-wrap', { 'extra-card': i >= 6 }]} data-index={i}>
+            <JobCard
+              slug={vacature.slug}
+              titel={vacature.data.titel}
+              functieSlug={vacature.data.functie}
+              icoon={functie?.icoon ?? 'helpende'}
+              regio={vacature.data.regio}
+              uren={vacature.data.uren}
+              dienstverband={vacature.data.dienstverband}
+              tone={i % 2 === 0 ? 'teal' : 'clay'}
+            />
+          </div>
+        );
+      })}
+    </div>
+
+    <p id="vacatures-leeg" class="hidden text-center text-navy-400 py-12">
+      Er zijn geen vacatures gevonden die aan jouw zoekopdracht voldoen. Probeer een andere functie of
+      regio, of laat je gegevens achter via een open sollicitatie.
+    </p>
+
+    <div class="mt-10 text-center">
+      <button
+        id="toon-alle-btn"
+        type="button"
+        class="inline-flex items-center gap-2 rounded-full border border-navy-700 text-navy-700 font-semibold px-6 py-3.5 hover:bg-navy-700 hover:text-white transition-colors"
+      >
+        Bekijk alle vacatures ({total})
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .extra-card[data-hidden-by-limit='true'] {
+    display: none;
+  }
+  .job-card-wrap[data-hidden-by-filter='true'] {
+    display: none;
+  }
+</style>
+
+<script>
+  const grid = document.getElementById('vacatures-grid');
+  const cards = Array.from(grid?.querySelectorAll<HTMLElement>('.job-card-wrap') ?? []);
+  const toonAlleBtn = document.getElementById('toon-alle-btn') as HTMLButtonElement | null;
+  const resultaatEl = document.getElementById('vacatures-resultaat');
+  const leegEl = document.getElementById('vacatures-leeg');
+  const functieSelect = document.getElementById('functie-select') as HTMLSelectElement | null;
+  const regioSelect = document.getElementById('regio-select') as HTMLSelectElement | null;
+
+  let expanded = false;
+
+  function applyFilters() {
+    const functieVal = functieSelect?.value ?? '';
+    const regioVal = regioSelect?.value ?? '';
+    const filtersActief = Boolean(functieVal || regioVal);
+
+    let visibleCount = 0;
+    let shown = 0;
+
+    cards.forEach((wrap) => {
+      const card = wrap.querySelector<HTMLElement>('.job-card');
+      const functie = card?.dataset.functie ?? '';
+      const regio = card?.dataset.regio ?? '';
+      const matches = (!functieVal || functie === functieVal) && (!regioVal || regio === regioVal);
+
+      if (!matches) {
+        wrap.setAttribute('data-hidden-by-filter', 'true');
+        return;
+      }
+      wrap.removeAttribute('data-hidden-by-filter');
+      visibleCount++;
+
+      const isExtra = wrap.classList.contains('extra-card');
+      const shouldLimit = !filtersActief && !expanded && isExtra;
+      if (shouldLimit) {
+        wrap.setAttribute('data-hidden-by-limit', 'true');
+      } else {
+        wrap.removeAttribute('data-hidden-by-limit');
+        shown++;
+      }
+    });
+
+    if (resultaatEl) {
+      resultaatEl.textContent = `${visibleCount} vacature${visibleCount === 1 ? '' : 's'} gevonden`;
+    }
+
+    if (leegEl) {
+      leegEl.classList.toggle('hidden', visibleCount !== 0);
+    }
+
+    if (toonAlleBtn) {
+      const alleZichtbaar = expanded || filtersActief;
+      toonAlleBtn.classList.toggle('hidden', alleZichtbaar || visibleCount <= 6);
+    }
+  }
+
+  toonAlleBtn?.addEventListener('click', () => {
+    expanded = true;
+    applyFilters();
+  });
+
+  functieSelect?.addEventListener('change', applyFilters);
+  regioSelect?.addEventListener('change', applyFilters);
+  window.addEventListener('p1zorg:filter-apply', applyFilters);
+
+  applyFilters();
+</script>

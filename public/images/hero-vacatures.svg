@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F07C2E"/>
+      <stop offset="100%" stop-color="#16264A"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <circle cx="650" cy="120" r="90" fill="white" opacity="0.08"/>
+  <circle cx="120" cy="480" r="130" fill="white" opacity="0.08"/>
+  <g transform="translate(400,270)" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <circle cx="0" cy="-28" r="26"/>
+    <path d="M-48,60 C-48,10 -22,-10 0,-10 C22,-10 48,10 48,60"/>
+  </g>
+  <text x="400" y="380" font-family="Arial, sans-serif" font-size="22" fill="white" fill-opacity="0.85" text-anchor="middle">Vervang met foto: zorgprofessional met cliënt</text>
+</svg>

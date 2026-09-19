@@ -1,0 +1,106 @@
+---
+import Logo from './Logo.astro';
+---
+
+<footer id="contact" class="relative overflow-hidden bg-mist-50 pt-20 pb-8">
+  <div class="blob w-64 h-64 bg-teal-100/60 -left-20 top-10 hidden md:block"></div>
+  <div class="blob w-72 h-72 bg-clay-100/70 -right-24 top-0 hidden md:block"></div>
+
+  <div class="relative mx-auto max-w-content px-6 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1fr_1fr] gap-12">
+      <div>
+        <Logo class="mb-5" />
+        <p class="text-navy-400 leading-relaxed max-w-xs">
+          P1Zorg verbindt zorgprofessionals met zorginstellingen in Zuid-Nederland. Met persoonlijke
+          aandacht en expertise zorgen wij voor de juiste match, zodat zorginstellingen kunnen rekenen
+          op betrouwbare ondersteuning en professionals op werk dat écht bij hen past.
+        </p>
+        <a
+          href="/over-ons"
+          class="mt-6 inline-flex items-center gap-2 rounded-full border border-navy-700 text-navy-700 font-semibold text-sm px-5 py-2.5 hover:bg-navy-700 hover:text-white transition-colors"
+        >
+          Meer over P1Zorg
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div>
+        <h3 class="font-display font-bold text-lg text-navy-700 mb-5">Contact</h3>
+        <ul class="space-y-5 text-[15px]">
+          <li>
+            <p class="font-semibold text-navy-700">Telefoon</p>
+            <a href="tel:0636072983" class="text-navy-400 hover:text-teal-600">06 36 07 29 83</a><br />
+            <a href="tel:0850026203" class="text-navy-400 hover:text-teal-600">085 002 62 03</a>
+          </li>
+          <li>
+            <p class="font-semibold text-navy-700">E-mail</p>
+            <a href="mailto:info@p1zorg.nl" class="text-navy-400 hover:text-teal-600">info@p1zorg.nl</a>
+          </li>
+          <li>
+            <p class="font-semibold text-navy-700">Bereikbaarheid</p>
+            <span class="text-navy-400">Ma t/m Vr 08:30 - 17:30</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-display font-bold text-lg text-navy-700 mb-5">Ons kantoor</h3>
+        <div class="text-[15px] mb-6">
+          <p class="font-semibold text-navy-700">Hoofdkantoor</p>
+          <p class="text-navy-400">P1Zorg B.V.<br />Grensteen 27<br />4815PP Breda</p>
+        </div>
+        <div class="text-[15px]">
+          <p class="font-semibold text-navy-700">Werkgebied</p>
+          <p class="text-navy-400">Wij zijn actief in de gehele regio Zuid-Nederland.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm h-fit">
+        <p class="font-display font-bold text-navy-700 text-lg leading-snug mb-2">
+          Samen de juiste zorg mogelijk maken?
+        </p>
+        <p class="text-navy-400 text-sm mb-5">
+          Neem contact met ons op. We denken graag met je mee en helpen je verder.
+        </p>
+        <a href="tel:0636072983" class="flex items-center gap-3 text-navy-700 font-bold">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-clay-50 text-clay-600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </span>
+          <span>
+            06 36 07 29 83
+            <span class="block text-xs font-normal text-navy-400">Bel ons direct</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-navy-100 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-navy-400">
+      <p>
+        Samen zetten we ons in voor de zorg. <span class="font-semibold text-navy-700">Vandaag, morgen en in de toekomst.</span>
+      </p>
+      <div class="flex items-center gap-3">
+        <span>Volg ons op</span>
+        {['LinkedIn', 'Instagram', 'Facebook'].map((label) => (
+          <a
+            href="#"
+            aria-label={label}
+            class="flex items-center justify-center w-9 h-9 rounded-full bg-navy-700 text-white hover:bg-teal-600 transition-colors"
+          >
+            <span class="text-[11px] font-bold">{label[0]}</span>
+          </a>
+        ))}
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/privacyverklaring" class="hover:text-teal-600">Privacyverklaring</a>
+        <span>|</span>
+        <a href="/algemene-voorwaarden" class="hover:text-teal-600">Algemene voorwaarden</a>
+      </div>
+    </div>
+    <p class="mt-4 text-xs text-navy-400">© {new Date().getFullYear()} P1Zorg B.V. Alle rechten voorbehouden.</p>
+  </div>
+</footer>
